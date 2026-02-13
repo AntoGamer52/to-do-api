@@ -15,11 +15,16 @@ class CategoriesDatabase():
     
     def add_category(self,name:str):
         with self.conn:
-            self.cursor.execute("INSERT INTO categories (name) VALUES name=:name",{"name":name})
+            self.cursor.execute("INSERT INTO categories (name) VALUES (:name)",{"name":name})
     
     def get_category_of_id(self,id:int):
         self.cursor.execute("SELECT * FROM categories WHERE id=:id",{"id":id})
-        return self.cursor.fetchone()
+        return dict(self.cursor.fetchone())
+
+    def get_all(self):
+        self.cursor.execute("SELECT * FROM categories")
+        rows = self.cursor.fetchall()
+        return [dict(row) for row in rows]
 
     def remove_category(self,id:int):
         with self.conn:

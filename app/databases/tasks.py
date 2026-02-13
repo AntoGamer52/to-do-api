@@ -15,13 +15,23 @@ class TasksDatabase():
                             FOREIGN KEY(category_id) REFERENCES categories(id)) """)
         self.conn.commit()
     
-    def add_task(self,name:str):
+    def add_task(self,name:str,category_id:int):
         with self.conn:
-            self.cursor.execute("INSERT INTO tasks (name) VALUES name=:name",{"name":name})
+            self.cursor.execute("INSERT INTO tasks (name,category_id) VALUES (:name,:category_id)",{"name":name,"category_id":category_id})
     
     def get_task_of_id(self,id:int):
         self.cursor.execute("SELECT * FROM tasks WHERE id=:id",{"id":id})
-        return self.cursor.fetchone()
+        return dict(self.cursor.fetchone())
+    
+    def get_tasks_of_category_id(self,id:int):
+        self.cursor.execute("SELECT * FROM TASKS WHERE category_id=:id",{"id":id})
+        rows = self.cursor.fetchall()
+        return [dict(row) for row in rows]
+    
+    def get_all(self):
+        self.cursor.execute("SELECT * FROM tasks")
+        rows = self.cursor.fetchall()
+        return [dict(row) for row in rows]
 
     def remove_task(self,id:int):
         with self.conn:
