@@ -3,7 +3,7 @@ import json
 from databases.database_manager import DatabaseManager
 from api.api_starter import ServerAPI
 
-manager = DatabaseManager("databases/file.db")
+manager = DatabaseManager("app/databases/file.db")
 manager.categories.add_category("test")
 manager.categories.add_category("2test")
 manager.tasks.add_task("tarea_1",1)
