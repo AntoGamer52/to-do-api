@@ -21,7 +21,7 @@ app = FastAPI()
 
 @app.get("/")
 def root():
-	return {"Status" : "Working"}
+	return {"essss" : "2"}
 
 server = ServerAPI(app,manager)
 
