@@ -6,6 +6,7 @@ class ServerAPI():
     def __init__(self,app:FastAPI,DatabaseManager:DatabaseManager):
         self.app = app
         self.DatabaseManager = DatabaseManager
+        self.setUp()
     
     def setUp(self):
 
